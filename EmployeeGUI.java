@@ -55,7 +55,7 @@ class EmployeeGUI {
         roleBox.setForeground(textColor);
         roleBox.setBackground(Color.WHITE);
 
-        JButton calculateButton = new JButton("Calculate Salary");       //button
+        JButton calculateButton = new JButton("Calculate Salary");       //calculate button
         calculateButton.setFont(buttonFont);
         // Button color changed to GREEN and text color to DARK BLUE
         calculateButton.setBackground(Color.GREEN);
