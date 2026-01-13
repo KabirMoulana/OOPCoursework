@@ -1,16 +1,16 @@
-public class Employee {                                                       //parent class
+class Employee {                                               //parent class
 
     protected int empId;
-    protected String name;                                                     //attributes 
-    protected double basicSalary;                                              //encapsulation has been used, protected
+    protected String name;                                     //attributes
+    protected double basicSalary;
 
-    public Employee(int empId, String name, double basicSalary) {              //constructor
+    public Employee(int empId, String name, double basicSalary) {        //constructor
         this.empId = empId;
         this.name = name;
         this.basicSalary = basicSalary;
     }
 
-    public double calculateSalary() {          
+    public double calculateSalary() {                             //method
         return basicSalary;
     }
 }
