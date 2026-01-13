@@ -1,11 +1,14 @@
-public class Developer extends Employee {                                 //inheritance
+class Developer extends Employee
+{                                                                           //inheritance
 
-    public Developer(int empId, String name, double basicSalary) {        //constructor
-        super(empId, name, basicSalary);                                 //super calls the parent class constructor
+    public Developer(int empId, String name, double basicSalary)             //constructor
+    {                                                                        
+        super(empId, name, basicSalary);                                     //super calls the parent class consrtuctor
     }
 
-    @Override                                                            //polymorphism
-    public double calculateSalary() {
+    @Override
+    public double calculateSalary() 
+    {                                                                         //polymorphism 
         return basicSalary + 3000;
     }
 }
