@@ -1,98 +1,105 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class EmployeeGUI extends JFrame {
+class EmployeeGUI {
+        public void open() {
 
-    JTextField idField, nameField, salaryField;
-    JComboBox<String> roleBox;
-    JButton calculateButton;
+        JFrame f = new JFrame("Employee Management System");
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLayout(new GridLayout(5, 2));
 
-    public EmployeeGUI() {
+        Font labelFont = new Font("Arial", Font.BOLD, 16);         //font
+        Font fieldFont = new Font("Arial", Font.PLAIN, 15);
+        Font buttonFont = new Font("Arial", Font.BOLD, 16);
 
-        setTitle("Employee Management System");
-        setSize(400, 300);
-        setLayout(new GridLayout(5, 2));
+        Color bgColor = Color.LIGHT_GRAY;            // backgrnd
+        Color textColor = new Color(0, 51, 102);     // dark blue
 
-        // Light gray background
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        f.getContentPane().setBackground(bgColor);
 
-        // Dark blue text color
-        Color textColor = new Color(0, 51, 102);
-
-        idField = new JTextField();
-        nameField = new JTextField();
-        salaryField = new JTextField();
-
-        roleBox = new JComboBox<>(new String[]{
-                "Manager", "Developer", "Accountant"
-        });
-
-        calculateButton = new JButton("Calculate Salary");
-
-        // Button color changed to GREEN
-        calculateButton.setBackground(Color.GREEN);
-        calculateButton.setForeground(Color.BLACK);
-
-        JLabel idLabel = new JLabel("Employee ID");
+        JLabel idLabel = new JLabel("Employee ID");           //label
         JLabel nameLabel = new JLabel("Name");
         JLabel salaryLabel = new JLabel("Basic Salary");
         JLabel roleLabel = new JLabel("Role");
+
+        idLabel.setFont(labelFont);
+        nameLabel.setFont(labelFont);
+        salaryLabel.setFont(labelFont);
+        roleLabel.setFont(labelFont);
 
         idLabel.setForeground(textColor);
         nameLabel.setForeground(textColor);
         salaryLabel.setForeground(textColor);
         roleLabel.setForeground(textColor);
 
+        JTextField idField = new JTextField();
+        JTextField nameField = new JTextField();            //takes inputs
+        JTextField salaryField = new JTextField();
+
+        idField.setFont(fieldFont);
+        nameField.setFont(fieldFont);
+        salaryField.setFont(fieldFont);
+
         idField.setForeground(textColor);
         nameField.setForeground(textColor);
         salaryField.setForeground(textColor);
+
+        idField.setBackground(Color.WHITE);
+        nameField.setBackground(Color.WHITE);
+        salaryField.setBackground(Color.WHITE);
+
+        JComboBox<String> roleBox = new JComboBox<>(                 //selection box
+                new String[]{"Manager", "Developer", "Accountant"});
+        roleBox.setFont(fieldFont);
         roleBox.setForeground(textColor);
+        roleBox.setBackground(Color.WHITE);
 
-        add(idLabel);
-        add(idField);
-        add(nameLabel);
-        add(nameField);
-        add(salaryLabel);
-        add(salaryField);
-        add(roleLabel);
-        add(roleBox);
-        add(calculateButton);
+        JButton calculateButton = new JButton("Calculate Salary");       //button
+        calculateButton.setFont(buttonFont);
+        // Button color changed to GREEN and text color to DARK BLUE
+        calculateButton.setBackground(Color.GREEN);
+        calculateButton.setForeground(textColor);
 
-        calculateButton.addActionListener(e -> calculateSalary());
+        calculateButton.addActionListener(e -> {       //action button
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
+            int id = Integer.parseInt(idField.getText());     //gets id
+            String name = nameField.getText();                 //gets text from name field
+            double basicSalary = Double.parseDouble(salaryField.getText());    //gets salary
+            String role = roleBox.getSelectedItem().toString();
 
-    private void calculateSalary() {
+            Employee emp;
+            if (role.equals("Manager")) {
+                emp = new Manager(id, name, basicSalary);
+            } else if (role.equals("Developer")) {
+                emp = new Developer(id, name, basicSalary);
+            } else {
+                emp = new Accountant(id, name, basicSalary);
+            }
 
-        int id = Integer.parseInt(idField.getText());
-        String name = nameField.getText();
-        double salary = Double.parseDouble(salaryField.getText());
-        String role = roleBox.getSelectedItem().toString();
+            double totalSalary = emp.calculateSalary();
 
-        Employee emp;
+            System.out.println("------ Employee payslip ------");     //output
+            System.out.println("ID            : " + id);
+            System.out.println("Name          : " + name);
+            System.out.println("Basic Salary  : " + basicSalary);
+            System.out.println("Role          : " + role);
+            System.out.println("Total Salary  : " + totalSalary);
+            System.out.println("      ------------------       ");
 
-        if (role.equals("Manager")) {
-            emp = new Manager(id, name, salary);
-        } else if (role.equals("Developer")) {
-            emp = new Developer(id, name, salary);
-        } else {
-            emp = new Accountant(id, name, salary);
-        }
+            JOptionPane.showMessageDialog
+              (f,  "Total Salary = " + totalSalary);
+        });
+        f.add(idLabel);
+        f.add(idField);
+        f.add(nameLabel);          //add components
+        f.add(nameField);
+        f.add(salaryLabel);
+        f.add(salaryField);
+        f.add(roleLabel);
+        f.add(roleBox);
+        f.add(calculateButton);
 
-        double totalSalary = emp.calculateSalary();
-
-        // Print user-entered data to command prompt
-        System.out.println("------ Employee paysheet------");
-        System.out.println("Employee ID  : " + id);
-        System.out.println("Name        : " + name);
-        System.out.println("Basic salary : " + salary);
-        System.out.println("Role        : " + role);
-        System.out.println("Total salary : " + totalSalary);
-        System.out.println("------------------------------");
-
-        JOptionPane.showMessageDialog(this,
-                "Total Salary = " + totalSalary);
+        f.setVisible(true);      //makes the frame visible on screen
     }
 }
