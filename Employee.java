@@ -1,7 +1,8 @@
 class Employee {                                               //parent class
 
+   //attributes
     protected int empId;
-    protected String name;                                     //attributes
+    protected String name;                                     //encapsulation
     protected double basicSalary;
 
     public Employee(int empId, String name, double basicSalary) {        //constructor
